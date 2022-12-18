@@ -13,8 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyJobRunner implements CommandLineRunner {
 
-    @Autowired
+//    @Autowired
     private JobLauncher launcher;
+
+    @Autowired
+    public void setLauncher(JobLauncher launcher) {
+        this.launcher = launcher;
+    }
 
     @Autowired
     private Job jobA;
