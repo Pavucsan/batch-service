@@ -94,7 +94,7 @@ public class BatchConfiguration {
     @Bean
     public Step stepA() {
         return sf.get("stepA")// step name
-                .<Customer, Customer> chunk(3) // <I,O> chunk
+                .<Customer, Customer> chunk(20) // <I,O> chunk
                 .reader(reader()) // reader object
                 .processor(processor()) // processor object
                 .writer(writer()) // writer object
