@@ -10,6 +10,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -29,17 +30,17 @@ public class BatchConfiguration {
 
     //    Reader object
     @Bean
-    public FlatFileItemReader<Customer> reader() {
+    public ItemReader<Customer> reader() {
         FlatFileItemReader<Customer> reader = new FlatFileItemReader<>();
         reader.setResource(new ClassPathResource("customers.csv"));
 //        reader.setResource(new FileSystemResource("E:\\own\\batch-service\\src\\main\\resources\\customers.csv"));
 //        reader.setResource(new UrlResource("customers.csv"));
-        reader.setLineMapper(new DefaultLineMapper<>() {{
+        reader.setLineMapper(new DefaultLineMapper() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
                 setDelimiter(DELIMITER_COMMA);
                 setNames("customerId", "firstName", "age");
             }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
+            setFieldSetMapper(new BeanWrapperFieldSetMapper() {{
                 setTargetType(Customer.class);
             }});
         }});
@@ -62,6 +63,7 @@ public class BatchConfiguration {
             return customer;
         };
     }
+
 
     @Autowired
     private DataSource dataSource;
