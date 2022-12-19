@@ -1,0 +1,8 @@
+CREATE TABLE vt_db.`customer` (
+  `customer_id` int NOT NULL,
+  `first_name` varchar(400) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `points` int DEFAULT NULL,
+  PRIMARY KEY (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+SELECT * FROM vt_db.customer;
